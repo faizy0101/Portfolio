@@ -1,0 +1,567 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammed Faiz | Python Django Developer</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5.3 CSS & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --primary-accent: #1b4985;
+            --primary-hover: #0f2438;
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Times New Roman', Times, serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background-color: #f1f5f9;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: var(--font-heading);
+        }
+
+        /* Glassmorphism Sticky Navbar */
+        .navbar-glass {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        [data-bs-theme="dark"] .navbar-glass {
+            background-color: rgba(15, 36, 56, 0.9);
+        }
+
+        .nav-link {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link.active {
+            color: var(--primary-accent) !important;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding-top: 8rem;
+            padding-bottom: 5rem;
+            background: radial-gradient(circle at top right, rgba(27, 73, 133, 0.08), transparent 45%),
+                        radial-gradient(circle at bottom left, rgba(15, 36, 56, 0.06), transparent 45%);
+        }
+
+        .availability-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            background-color: rgba(27, 73, 133, 0.12);
+            color: var(--primary-accent);
+            border: 1px solid rgba(27, 73, 133, 0.25);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(27, 73, 133, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(27, 73, 133, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(27, 73, 133, 0); }
+        }
+
+        /* Buttons */
+        .btn-accent {
+            background-color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            color: #fff;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            padding: 0.75rem 1.75rem;
+            border-radius: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Cards & Portfolio */
+        .stat-card, .project-card, .skill-card {
+            border-radius: 1.25rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background-color: var(--bs-body-bg);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Timeline */
+        .timeline {
+            border-left: 2px solid rgba(27, 73, 133, 0.3);
+            padding-left: 1.75rem;
+            position: relative;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.2rem;
+            top: 0.35rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary-accent);
+            border: 3px solid var(--bs-body-bg);
+        }
+
+        /* Animated Heading Styles */
+        .typed-text {
+            color: var(--primary-accent);
+            border-right: 3px solid var(--primary-accent);
+            white-space: nowrap;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-accent); }
+        }
+
+        /* Left-Side Shirt Pocket Badge Profile Photo */
+        .pocket-badge-wrapper {
+            display: inline-block;
+        }
+
+        .pocket-badge-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-accent);
+            box-shadow: 0 6px 16px rgba(27, 73, 133, 0.2);
+            background-color: var(--bs-body-bg);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .pocket-badge-img:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 10px 22px rgba(27, 73, 133, 0.28);
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="100" tabindex="0">
+
+    <!-- Navbar -->
+    <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top navbar-glass py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#home" style="color: var(--primary-accent);">
+                <span>&lt;</span> Portfolio of Faiz <span>/&gt;</span>
+            </a>
+            <div class="d-flex align-items-center order-lg-3 gap-2">
+                <button id="themeToggle" class="btn btn-outline-secondary rounded-circle p-2 lh-1" aria-label="Toggle Dark Mode">
+                    <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
+                </button>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse order-lg-2" id="navbarContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-10">
+                    <!-- Shirt Pocket Badge Style Profile Photo (Left Side) -->
+                    <div class="pocket-badge-wrapper mb-3">
+                        <img src="{% static 'images/profile.png' %}"
+                             onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'"
+                             alt="Muhammed Faiz" class="pocket-badge-img">
+                    </div>
+
+                    <div class="availability-badge mb-4">
+                        <span class="pulse-dot"></span> Available for Training & Full-Stack Roles
+                    </div>
+                    <h2 class="display-4 fw-extrabold mb-3 lh-sm" style="font-family: var(--font-heading);">
+                        I am a <span class="typed-text" id="animatedHeading">Python Django Developer</span><span class="cursor">&nbsp;</span>
+                    </h2>
+                    <p class="lead text-body-secondary mb-4 pe-lg-5">
+                        Architecting enterprise ERP solutions for healthcare and businesses, backed by advanced Django Expertise and AI-assisted development, vibe coding, and prompt engineering expertise.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mb-4">
+                        <a href="#portfolio" class="btn btn-accent">Explore Projects <i class="bi bi-arrow-right ms-1"></i></a>
+                        <a href="#contact" class="btn btn-outline-secondary px-4 py-3 rounded-3 fw-semibold font-monospace" style="font-family: var(--font-heading) !important;">Get in Touch</a>
+                    </div>
+                    <div class="d-flex gap-3 fs-4">
+                        <a href="https://github.com/faizy0101" target="_blank" rel="noopener noreferrer" class="text-body-secondary hover-primary" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                        <a href="https://www.linkedin.com/in/muhammed-faiz-kk" target="_blank" rel="noopener noreferrer" class="text-body-secondary hover-primary" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:faizykk@outlook.com" class="text-body-secondary hover-primary" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Summary -->
+    <section id="about" class="py-5 bg-body">
+        <div class="container py-4">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-5">
+                    <span class="text-uppercase fw-bold small" style="color: var(--primary-accent); font-family: var(--font-heading);">Professional Summary</span>
+                    <h2 class="fw-bold mt-2 mb-3" style="font-family: var(--font-heading);">Bridging backend engineering and technical mentorship.</h2>
+                    <p class="text-body-secondary">
+                        Detail-oriented Python Django Trainer and Full-Stack Developer with extensive academic leadership and technical instruction experience, specializing in mentoring students and building enterprise-grade web applications.
+                    </p>
+                </div>
+                <div class="col-lg-7">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stat-card p-4">
+                                <h3 class="fw-bold mb-1" style="color: var(--primary-accent); font-family: var(--font-heading);">4+ Years</h3>
+                                <p class="text-body-secondary mb-0 small">Teaching &amp; Training Experience</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card p-4">
+                                <h3 class="fw-bold mb-1" style="color: var(--primary-accent); font-family: var(--font-heading);">PostgreSQL</h3>
+                                <p class="text-body-secondary mb-0 small">Relational Database Architecture</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card p-4">
+                                <h3 class="fw-bold mb-1" style="color: var(--primary-accent); font-family: var(--font-heading);">DRF</h3>
+                                <p class="text-body-secondary mb-0 small">RESTful API Design</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card p-4">
+                                <h3 class="fw-bold mb-1" style="color: var(--primary-accent); font-family: var(--font-heading);">AI &amp; Vibe Coding</h3>
+                                <p class="text-body-secondary mb-0 small">Prompt Engineering &amp; Prototyping</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filterable Portfolio Section / Projects -->
+    <section id="portfolio" class="py-5 bg-body-tertiary">
+        <div class="container py-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-3">
+                <div>
+                    <span class="text-uppercase fw-bold small" style="color: var(--primary-accent); font-family: var(--font-heading);">Portfolio</span>
+                    <h2 class="fw-bold mt-2 mb-0" style="font-family: var(--font-heading);">Projects</h2>
+                </div>
+                <div class="btn-group" role="group" aria-label="Project Filter" style="font-family: var(--font-heading);">
+                    <button type="button" class="btn btn-outline-primary active filter-btn" data-filter="all">All</button>
+                    <button type="button" class="btn btn-outline-primary filter-btn" data-filter="web">Enterprise &amp; SaaS</button>
+                    <button type="button" class="btn btn-outline-primary filter-btn" data-filter="ecommerce">E-Commerce</button>
+                </div>
+            </div>
+
+            <div class="row g-4" id="projectsGrid">
+                <!-- Project 1: Multi-Seller E-Commerce -->
+                <div class="col-md-6 col-lg-4 project-item" data-category="ecommerce">
+                    <div class="project-card h-100 d-flex flex-column">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                             class="project-img card-img-top" style="height: 220px; object-fit: cover;" alt="Multi-Seller E-Commerce Platform">
+                        <div class="p-4 flex-grow-1 d-flex flex-column">
+                            <span class="badge bg-primary-subtle text-primary align-self-start mb-2" style="font-family: var(--font-heading);">Python, Django, PostgreSQL</span>
+                            <h5 class="fw-bold" style="font-family: var(--font-heading);">Multi-Seller E-Commerce Platform</h5>
+                            <p class="text-body-secondary small flex-grow-1">Full-stack multi-vendor marketplace featuring role-based authentication, catalog management, customer cart workflows, and centralized Django Admin moderation oversight.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Hospo - Hospital Management System -->
+                <div class="col-md-6 col-lg-4 project-item" data-category="web">
+                    <div class="project-card h-100 d-flex flex-column">
+                        <img src="{% static 'images/hospo.jpg' %}"
+                             class="project-img card-img-top" style="height: 220px; object-fit: cover;" alt="Hospo Hospital Management System">
+                        <div class="p-4 flex-grow-1 d-flex flex-column">
+                            <span class="badge bg-success-subtle text-success align-self-start mb-2" style="font-family: var(--font-heading);">Healthcare ERP &amp; SaaS</span>
+                            <h5 class="fw-bold" style="font-family: var(--font-heading);">Hospo — Hospital Management System</h5>
+                            <p class="text-body-secondary small flex-grow-1">Comprehensive hospital management SaaS integrating patient registration, appointment scheduling, medical record continuity, automated billing, and receipt generation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Loyalty Reward Program -->
+                <div class="col-md-6 col-lg-4 project-item" data-category="web">
+                    <div class="project-card h-100 d-flex flex-column">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                             class="project-img card-img-top" style="height: 220px; object-fit: cover;" alt="Loyalty Reward Program">
+                        <div class="p-4 flex-grow-1 d-flex flex-column">
+                            <span class="badge bg-primary-subtle text-primary align-self-start mb-2" style="font-family: var(--font-heading);">Retail SaaS Architecture</span>
+                            <h5 class="fw-bold" style="font-family: var(--font-heading);">Loyalty Reward Program for Retail</h5>
+                            <p class="text-body-secondary small flex-grow-1">Scalable reward web application maximizing customer engagement with purchase-based point calculations, customer redemption features, and a dedicated administrative panel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Skills Section -->
+    <section id="skills" class="py-5 bg-body">
+        <div class="container py-4">
+            <div class="row g-5">
+                <!-- Professional Experience Timeline -->
+                <div class="col-lg-6">
+                    <span class="text-uppercase fw-bold small" style="color: var(--primary-accent); font-family: var(--font-heading);">Career Track</span>
+                    <h2 class="fw-bold mt-2 mb-4" style="font-family: var(--font-heading);">Professional Experience</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="badge bg-secondary-subtle text-body mb-1" style="font-family: var(--font-heading);">June 2026 – October 2026</span>
+                            <h5 class="fw-bold mb-1" style="font-family: var(--font-heading);">Python Django Developer Intern</h5>
+                            <p class="text-primary fw-semibold small mb-1">Futura Labs Technologies LLP</p>
+                            <p class="text-body-secondary small mb-0">Engineered MVT application modules, implemented secure REST APIs via DRF, configured PostgreSQL migrations using Django ORM, and integrated robust authentication &amp; RBAC routines.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="badge bg-secondary-subtle text-body mb-1" style="font-family: var(--font-heading);">2020 – 2024</span>
+                            <h5 class="fw-bold mb-1" style="font-family: var(--font-heading);">Teacher of ICT </h5>
+                            <p class="text-primary fw-semibold small mb-1">Navabharath Central School, Al Huda EMUP School &amp; IET Institute</p>
+                            <p class="text-body-secondary small mb-0">Served as HOD IT, managed institutional curriculum design, and conducted intensive ICT and programming laboratories, mentoring students in Python, Software tools, and core computer science.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Skills Matrix -->
+                <div class="col-lg-6">
+                    <span class="text-uppercase fw-bold small" style="color: var(--primary-accent); font-family: var(--font-heading);">Expertise</span>
+                    <h2 class="fw-bold mt-2 mb-4" style="font-family: var(--font-heading);">Technical Skills</h2>
+
+                    <div class="mb-3">
+                        <span class="fw-bold text-dark dark-mode-text" style="font-family: var(--font-heading);">Training &amp; Curriculum:</span>
+                        <p class="text-body-secondary small mb-2">Technical Mentorship, Full-Stack Curriculum Design, Coding Instruction, Student Performance Assessment</p>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-dark dark-mode-text" style="font-family: var(--font-heading);">Programming Languages:</span>
+                        <p class="text-body-secondary small mb-2">Python, Java, C, C++, JavaScript, HTML5, CSS3</p>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-dark dark-mode-text" style="font-family: var(--font-heading);">Backend &amp; Full-Stack:</span>
+                        <p class="text-body-secondary small mb-2">Django, Django REST Framework (DRF), RESTful APIs, Django ORM, Authentication &amp; RBAC</p>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-dark dark-mode-text" style="font-family: var(--font-heading);">Databases:</span>
+                        <p class="text-body-secondary small mb-2">PostgreSQL, Relational Database Design, Database Relationships, QuerySets &amp; Schema Migrations</p>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-dark dark-mode-text" style="font-family: var(--font-heading);">AI-Assisted Dev &amp; Vibe Coding:</span>
+                        <p class="text-body-secondary small mb-2">AI-Assisted Software Engineering, Vibe Coding, Rapid Application Prototyping, Code Refinement</p>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-dark dark-mode-text" style="font-family: var(--font-heading);">Prompt Engineering:</span>
+                        <p class="text-body-secondary small mb-2">Structured Prompt Design, Context-Aware Prompts, Requirement Decomposition, AI-Driven Debugging</p>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-dark dark-mode-text" style="font-family: var(--font-heading);">Tools &amp; Version Control:</span>
+                        <p class="text-body-secondary small mb-0">Git, GitHub, OpenCode</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Credentials -->
+    <section class="py-4 bg-body-tertiary">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <span class="text-uppercase fw-bold small" style="color: var(--primary-accent); font-family: var(--font-heading);">Background</span>
+                    <h3 class="fw-bold mt-1 mb-4" style="font-family: var(--font-heading);">Education</h3>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="stat-card p-4 h-100">
+                                <h5 class="fw-bold mb-1" style="font-family: var(--font-heading);">Bachelor of Computer Applications (BCA)</h5>
+                                <p class="text-primary fw-semibold small mb-1">Calicut University</p>
+                                <span class="badge bg-secondary-subtle text-body" style="font-family: var(--font-heading);">Graduated 2020</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card p-4 h-100">
+                                <h5 class="fw-bold mb-1" style="font-family: var(--font-heading);">Master of Science (MSc)</h5>
+                                <p class="text-primary fw-semibold small mb-1">Kerala University</p>
+                                <span class="badge bg-secondary-subtle text-body mb-2" style="font-family: var(--font-heading);">Coursework Completed 2022</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Django CSRF Ready) -->
+    <section id="contact" class="py-5 bg-body">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="text-center mb-4">
+                        <span class="text-uppercase fw-bold small" style="color: var(--primary-accent); font-family: var(--font-heading);">Contact</span>
+                        <h2 class="fw-bold mt-2" style="font-family: var(--font-heading);">Let's Build or Learn Together</h2>
+                        <p class="text-body-secondary small">Reach out for training engagements, full-stack opportunities, or enterprise consulting.</p>
+                    </div>
+                    <div class="stat-card p-4 p-md-5">
+                        <form method="POST" action="" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" style="font-family: var(--font-heading);">Your Name</label>
+                                    <input type="text" name="name" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" style="font-family: var(--font-heading);">Email Address</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold" style="font-family: var(--font-heading);">Message</label>
+                                    <textarea name="message" rows="4" class="form-control" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-accent w-100">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 border-top text-center text-body-secondary small bg-body-tertiary">
+        <div class="container" style="font-family: var(--font-heading);">
+            &copy; 2026 Muhammed Faiz. Made with Django &amp; Bootstrap 5.
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS & Custom Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dark / Light Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlEl = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            htmlEl.setAttribute('data-bs-theme', newTheme);
+            themeIcon.className = newTheme === 'light' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill';
+        });
+
+        // Portfolio Category Filter
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+                document.querySelectorAll('.project-item').forEach(item => {
+                    item.style.display = (filter === 'all' || item.getAttribute('data-category') === filter) ? 'block' : 'none';
+                });
+            });
+        });
+
+        // Animated Heading Rotator
+        const words = [
+            "Python - Django Developer",
+            "Vibe-Coding & Prompt Engineering Expert",
+            "Enterprise ERP Solutions Architect"
+        ];
+
+        let i = 0;
+        let timer;
+
+        function typingEffect() {
+            let word = words[i].split("");
+            let loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('animatedHeading').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000); // Wait 2 seconds before deleting
+                    return;
+                }
+                timer = setTimeout(loopTyping, 100);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[i].split("");
+            let loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('animatedHeading').innerHTML = word.join("");
+                } else {
+                    if (words.length > (i + 1)) {
+                        i++;
+                    } else {
+                        i = 0;
+                    }
+                    setTimeout(typingEffect, 500); // Wait 0.5 seconds before typing next word
+                    return;
+                }
+                timer = setTimeout(loopDeleting, 50);
+            };
+            loopDeleting();
+        }
+
+        // Start the animation on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            // Clear initial text to let the loop type it out
+            document.getElementById('animatedHeading').innerHTML = "";
+            typingEffect();
+        });
+    </script>
+</body>
+</html>
