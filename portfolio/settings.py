@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+2zb07bug*^@&ibx)2)crl3jkq2@ng=ucx!)w9r*u#s^xem%^)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['Faiz01.pythonanywhere.com']
 
 
 # Application definition
@@ -68,7 +68,8 @@ TEMPLATES = [
         },
     },
 ]
-STATIC_URL='static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 
